@@ -12,6 +12,11 @@ do_install() {
 	install -Dm755 ${WORKDIR}/init ${D}/${sysconfdir}/init.d/weston
 	install -Dm0644 ${WORKDIR}/weston.service ${D}${systemd_system_unitdir}/weston.service
 
+	sed -i -e s:/etc:${sysconfdir}:g \
+	   -e s:/usr/bin:${bindir}:g \
+	   -e s:/var:${localstatedir}:g \
+	      ${D}${systemd_unitdir}/system/weston.service
+
 	# Install weston-start script
 	install -Dm755 ${WORKDIR}/weston-start ${D}${bindir}/weston-start
 	sed -i 's,@DATADIR@,${datadir},g' ${D}${bindir}/weston-start

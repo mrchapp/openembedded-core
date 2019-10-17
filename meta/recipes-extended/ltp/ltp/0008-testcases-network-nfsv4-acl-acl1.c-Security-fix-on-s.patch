@@ -24,7 +24,7 @@ Signed-off-by: Aníbal Limón <anibal.limon@linux.intel.com>
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/testcases/network/nfsv4/acl/acl1.c b/testcases/network/nfsv4/acl/acl1.c
-index bdf0180..898b7ca 100644
+index bdf0180da..898b7ca01 100644
 --- a/testcases/network/nfsv4/acl/acl1.c
 +++ b/testcases/network/nfsv4/acl/acl1.c
 @@ -303,7 +303,7 @@ void test_acl_default(char *dir, acl_t acl)
@@ -37,5 +37,5 @@ index bdf0180..898b7ca 100644
  	system(cmd);
  	acl2 = acl_get_file(path, ACL_TYPE_ACCESS);
 -- 
-2.7.4
+2.20.1
 

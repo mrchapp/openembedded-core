@@ -15,11 +15,11 @@ Signed-off-by: Yi Zhao <yi.zhao@windriver.com>
  1 file changed, 7 insertions(+)
 
 diff --git a/testcases/kernel/syscalls/accept4/accept4_01.c b/testcases/kernel/syscalls/accept4/accept4_01.c
-index dd289cf..76aa969 100644
+index 29e18f27d..07444a46f 100644
 --- a/testcases/kernel/syscalls/accept4/accept4_01.c
 +++ b/testcases/kernel/syscalls/accept4/accept4_01.c
 @@ -38,6 +38,7 @@
- static struct sockaddr_in conn_addr;
+ static struct sockaddr_in *conn_addr, *accept_addr;
  static int listening_fd;
  
 +#if defined(__GLIBC__) && defined(__GLIBC_PREREQ)
@@ -34,25 +34,24 @@ index dd289cf..76aa969 100644
  
  static int create_listening_socket(void)
  {
-@@ -115,6 +117,7 @@ static void verify_accept4(unsigned int nr)
- 	SAFE_CONNECT(connfd, (struct sockaddr *)&conn_addr, sizeof(conn_addr));
- 	addrlen = sizeof(claddr);
+@@ -114,12 +116,17 @@ static void verify_accept4(unsigned int nr)
+ 	SAFE_CONNECT(connfd, (struct sockaddr *)conn_addr, sizeof(*conn_addr));
+ 	addrlen = sizeof(*accept_addr);
  
 +#if defined(__GLIBC__) && defined(__GLIBC_PREREQ)
  #if !(__GLIBC_PREREQ(2, 10))
- 	TEST(accept4_01(listening_fd, (struct sockaddr *)&claddr, &addrlen,
+ 	TEST(accept4_01(listening_fd, (struct sockaddr *)accept_addr, &addrlen,
  				tcase->cloexec | tcase->nonblock));
-@@ -122,6 +125,10 @@ static void verify_accept4(unsigned int nr)
- 	TEST(accept4(listening_fd, (struct sockaddr *)&claddr, &addrlen,
+ #else
+ 	TEST(accept4(listening_fd, (struct sockaddr *)accept_addr, &addrlen,
  				tcase->cloexec | tcase->nonblock));
- #endif
++#endif
 +#else
 +	TEST(accept4(listening_fd, (struct sockaddr *)&claddr, &addrlen,
 +				tcase->cloexec | tcase->nonblock));
-+#endif
+ #endif
  	if (TST_RET == -1) {
  		if (TST_ERR == ENOSYS)
- 			tst_brk(TCONF, "syscall __NR_accept4 not supported");
 -- 
-2.7.4
+2.20.1
 

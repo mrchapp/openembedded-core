@@ -18,7 +18,7 @@ Signed-off-by: Yi Zhao <yi.zhao@windriver.com>
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/testcases/kernel/syscalls/Makefile b/testcases/kernel/syscalls/Makefile
-index d1becd0..1f3ff34 100644
+index d1becd054..1f3ff344e 100644
 --- a/testcases/kernel/syscalls/Makefile
 +++ b/testcases/kernel/syscalls/Makefile
 @@ -31,7 +31,7 @@ endif
@@ -31,5 +31,5 @@ index d1becd0..1f3ff34 100644
  
  ifeq ($(UCLIBC),1)
 -- 
-2.7.4
+2.20.1
 
